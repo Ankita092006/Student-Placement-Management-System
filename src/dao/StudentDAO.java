@@ -17,8 +17,8 @@ public class StudentDAO {
                      "VALUES (?, ?, ?, ?, ?)";
 
         try {
-            Connection con = DBConnection.getConnection();
 
+            Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setString(1, student.getName());
@@ -35,10 +35,12 @@ public class StudentDAO {
             con.close();
 
         } catch (Exception e) {
+
             System.out.println("Error adding student!");
             e.printStackTrace();
         }
     }
+
 
     // Display all students
     public void displayStudents() {
@@ -46,22 +48,36 @@ public class StudentDAO {
         String sql = "SELECT * FROM students";
 
         try {
+
             Connection con = DBConnection.getConnection();
-
             PreparedStatement ps = con.prepareStatement(sql);
-
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
                 System.out.println("-------------------------");
-                System.out.println("ID: " + rs.getInt("id"));
-                System.out.println("Name: " + rs.getString("name"));
-                System.out.println("Email: " + rs.getString("email"));
-                System.out.println("Department: "
-                                   + rs.getString("department"));
-                System.out.println("CGPA: "
-                                   + rs.getDouble("cgpa"));
+
+                System.out.println(
+                        "ID: " + rs.getInt("id")
+                );
+
+                System.out.println(
+                        "Name: " + rs.getString("name")
+                );
+
+                System.out.println(
+                        "Email: " + rs.getString("email")
+                );
+
+                System.out.println(
+                        "Department: " +
+                        rs.getString("department")
+                );
+
+                System.out.println(
+                        "CGPA: " +
+                        rs.getDouble("cgpa")
+                );
             }
 
             rs.close();
@@ -69,8 +85,65 @@ public class StudentDAO {
             con.close();
 
         } catch (Exception e) {
-            System.out.println("Error displaying students!");
+
+            System.out.println(
+                    "Error displaying students!"
+            );
+
             e.printStackTrace();
         }
+    }
+
+
+    // Student login
+    public Student loginStudent(
+            String email,
+            String password) {
+
+        String sql =
+                "SELECT * FROM students " +
+                "WHERE email = ? AND password = ?";
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            PreparedStatement ps =
+                    con.prepareStatement(sql);
+
+            ps.setString(1, email);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                Student student = new Student(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("department"),
+                        rs.getDouble("cgpa")
+                );
+
+                rs.close();
+                ps.close();
+                con.close();
+
+                return student;
+            }
+
+            rs.close();
+            ps.close();
+            con.close();
+
+        } catch (Exception e) {
+
+            System.out.println("Login error!");
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
