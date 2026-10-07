@@ -7,15 +7,17 @@ public class Student {
     private String email;
     private String department;
     private double cgpa;
+    private String password;
 
-    public Student(int id, String name, String email,
-                   String department, double cgpa) {
+    public Student(int id, String name, String email,String password, String department, double cgpa) {
+                   
 
         this.id = id;
         this.name = name;
         this.email = email;
         this.department = department;
         this.cgpa = cgpa;
+        this.password = null; // Password is not set in this constructor
     }
 
     public void displayStudent() {
