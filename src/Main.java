@@ -1,41 +1,36 @@
-import java.util.Scanner;
+import javax.swing.SwingUtilities;
+import ui.LoginFrame;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        System.out.println("==============================================");
+        System.out.println("     STUDENT PLACEMENT MANAGEMENT SYSTEM");
+        System.out.println("==============================================");
+        System.out.println("Starting application...");
 
-        System.out.println("=================================");
-        System.out.println(" Student Placement Management");
-        System.out.println("          System");
-        System.out.println("=================================");
+        SwingUtilities.invokeLater(() -> {
 
-        System.out.println("1. Student");
-        System.out.println("2. Admin");
-        System.out.println("3. Exit");
+            try {
 
-        System.out.print("Enter your choice: ");
-        int choice = sc.nextInt();
+                LoginFrame loginFrame =
+                        new LoginFrame();
 
-        switch (choice) {
+                loginFrame.setVisible(true);
 
-            case 1:
-                System.out.println("Student Login");
-                break;
+                System.out.println(
+                        "Application started successfully!"
+                );
 
-            case 2:
-                System.out.println("Admin Login");
-                break;
+            } catch (Exception e) {
 
-            case 3:
-                System.out.println("Thank you!");
-                break;
+                System.out.println(
+                        "Error starting application!"
+                );
 
-            default:
-                System.out.println("Invalid choice!");
-        }
-
-        sc.close();
+                e.printStackTrace();
+            }
+        });
     }
 }
