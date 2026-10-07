@@ -96,54 +96,50 @@ public class StudentDAO {
 
 
     // Student login
-    public Student loginStudent(
-            String email,
-            String password) {
+   // Student login
+public boolean loginStudent(
+        String email,
+        String password) {
 
-        String sql =
-                "SELECT * FROM students " +
-                "WHERE email = ? AND password = ?";
+    String sql =
+            "SELECT * FROM students " +
+            "WHERE email = ? AND password = ?";
 
-        try {
+    try {
 
-            Connection con = DBConnection.getConnection();
+        Connection con =
+                DBConnection.getConnection();
 
-            PreparedStatement ps =
-                    con.prepareStatement(sql);
+        PreparedStatement ps =
+                con.prepareStatement(sql);
 
-            ps.setString(1, email);
-            ps.setString(2, password);
+        ps.setString(1, email);
+        ps.setString(2, password);
 
-            ResultSet rs = ps.executeQuery();
+        ResultSet rs =
+                ps.executeQuery();
 
-            if (rs.next()) {
+        if (rs.next()) {
 
-                Student student = new Student(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("department"),
-                        rs.getDouble("cgpa")
-                );
-
-                rs.close();
-                ps.close();
-                con.close();
-
-                return student;
-            }
+            System.out.println("Login successful!");
 
             rs.close();
             ps.close();
             con.close();
 
-        } catch (Exception e) {
-
-            System.out.println("Login error!");
-            e.printStackTrace();
+            return true;
         }
 
-        return null;
+        rs.close();
+        ps.close();
+        con.close();
+
+    } catch (Exception e) {
+
+        System.out.println("Login error!");
+        e.printStackTrace();
     }
+
+    return false;
+}
 }
