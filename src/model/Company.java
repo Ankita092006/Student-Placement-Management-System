@@ -19,6 +19,31 @@ public class Company {
         this.eligibilityCgpa = eligibilityCgpa;
     }
 
+    // Getter for ID
+    public int getId() {
+        return id;
+    }
+
+    // Getter for company name
+    public String getName() {
+        return name;
+    }
+
+    // Getter for job role
+    public String getJobRole() {
+        return jobRole;
+    }
+
+    // Getter for package
+    public double getPackageAmount() {
+        return packageAmount;
+    }
+
+    // Getter for eligibility CGPA
+    public double getEligibilityCgpa() {
+        return eligibilityCgpa;
+    }
+
     // Display company details
     public void displayCompany() {
 

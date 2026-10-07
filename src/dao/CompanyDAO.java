@@ -1,5 +1,5 @@
+package dao;
 
-    package dao;
 import database.DBConnection;
 import model.Company;
 
@@ -13,14 +13,15 @@ public class CompanyDAO {
     public void addCompany(Company company) {
 
         String sql = "INSERT INTO companies " +
-                     "(name, job_role, package, eligibility_cgpa) " +
+                     "(name, job_role, package_amount, eligibility_cgpa) " +
                      "VALUES (?, ?, ?, ?)";
 
         try {
 
             Connection con = DBConnection.getConnection();
 
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps =
+                    con.prepareStatement(sql);
 
             ps.setString(1, company.getName());
             ps.setString(2, company.getJobRole());
@@ -41,6 +42,7 @@ public class CompanyDAO {
         }
     }
 
+
     // Display all companies
     public void displayCompanies() {
 
@@ -50,28 +52,40 @@ public class CompanyDAO {
 
             Connection con = DBConnection.getConnection();
 
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps =
+                    con.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
                 System.out.println("-------------------------");
-                System.out.println("Company ID: "
-                                   + rs.getInt("id"));
 
-                System.out.println("Company Name: "
-                                   + rs.getString("name"));
+                System.out.println(
+                        "Company ID: " +
+                        rs.getInt("id")
+                );
 
-                System.out.println("Job Role: "
-                                   + rs.getString("job_role"));
+                System.out.println(
+                        "Company Name: " +
+                        rs.getString("name")
+                );
 
-                System.out.println("Package: "
-                                   + rs.getDouble("package")
-                                   + " LPA");
+                System.out.println(
+                        "Job Role: " +
+                        rs.getString("job_role")
+                );
 
-                System.out.println("Minimum CGPA: "
-                                   + rs.getDouble("eligibility_cgpa"));
+                System.out.println(
+                        "Package: " +
+                        rs.getDouble("package_amount") +
+                        " LPA"
+                );
+
+                System.out.println(
+                        "Minimum CGPA: " +
+                        rs.getDouble("eligibility_cgpa")
+                );
             }
 
             rs.close();
@@ -80,7 +94,10 @@ public class CompanyDAO {
 
         } catch (Exception e) {
 
-            System.out.println("Error displaying companies!");
+            System.out.println(
+                    "Error displaying companies!"
+            );
+
             e.printStackTrace();
         }
     }
