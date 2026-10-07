@@ -27,5 +27,6 @@ public class Student {
         System.out.println("Email: " + email);
         System.out.println("Department: " + department);
         System.out.println("CGPA: " + cgpa);
+        System.out.println("Password: " + password);
     }
 }
